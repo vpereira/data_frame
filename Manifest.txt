@@ -23,8 +23,3 @@ test/data/test_data.csv
 test/test_data_frame.rb
 test/test_data_frame_generator.rb
 test/test_helper.rb
-website/index.html
-website/index.txt
-website/javascripts/rounded_corners_lite.inc.js
-website/stylesheets/screen.css
-website/template.rhtml
