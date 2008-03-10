@@ -280,5 +280,15 @@ class TestDataFrame < Test::Unit::TestCase
     assert_equal(D[[1,10],[1,11]], a[1])
   end
   
+  def test_rows
+    d = DataFrame[{"snake" => {"length" => 10, "height" => 1}, "giraffe" => {"length" => 3, "height" => 10}}]
+    assert_equal([{"giraffe" => {"length" => 3, "height" => 10}}, {"snake" => {"length" => 10, "height" => 1}}], d.named_rows)
+  end
+  
+  def test_cols
+    d = DataFrame[{"snake" => {"length" => 10, "height" => 1}, "giraffe" => {"length" => 3, "height" => 10}}]
+    assert_equal({"length" => [3, 10], "height" => [10, 1]}, d.cols)
+  end
+  
 
 end
