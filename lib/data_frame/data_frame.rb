@@ -336,6 +336,20 @@ class DataFrame
   
   # Return the rows as array of hashes.  Row names are attached as .row_name
   
+  def cols
+    cols = Hash.new
+    @data.each_index do |r|
+      @data[r].each_index do |c|
+        name = @col_names[c]
+        cols[name] ||= Array.new
+        cols[name] << @data[r][c]
+      end
+    end
+    cols
+  end
+  
+  # Return the rows as array of hashes.  Row names are lost.
+  
   def rows
     rows = Array.new
     @data.each_index do |r|
@@ -723,7 +737,7 @@ class DataFrame
       # TODO separate out columns like R ?
       max_sizes = cn.map do |n|
         [n.size, 
-         self[true,n].map{|x| x.inspect.size}.v(true).flatten
+         self[true,n] ? self[true,n].map{|x| x.inspect.size}.v(true).flatten : nil
         ].flatten.max
       end
       use_col_names = @col_names.any?{|n| n !~ /^_\d+$/}
