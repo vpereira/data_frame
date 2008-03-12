@@ -15,6 +15,7 @@ class DataFrame
     @data.each do |d|
       f.puts d.join(delim)
     end
+    f.close if f != $stdout
   end
   
   def write_to_csv2(filename, header=true)
