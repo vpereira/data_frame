@@ -290,5 +290,14 @@ class TestDataFrame < Test::Unit::TestCase
     assert_equal({"length" => [3, 10], "height" => [10, 1]}, d.cols)
   end
   
+  def test_reindex
+    d = DataFrame[{"snake" => {"length" => 10, "height" => 1}, "giraffe" => {"length" => 3, "height" => 10}}]
+    assert(d == D[[10, 3], [1, 10]])
+    d.col_names.map! { |name| "animal_#{name}"}
+    d.reindex_names
+
+    assert_equal(10, d["snake", "animal_length"])
+    assert(d["snake", "length"].nil?)
+  end
 
 end
