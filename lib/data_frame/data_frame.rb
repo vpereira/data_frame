@@ -331,7 +331,7 @@ class DataFrame
     end
   end
   
-  # Return cols as a hash of arrays
+  # Return the rows as array of hashes.  Row names are attached as .row_name
   
   def cols
     cols = Hash.new
@@ -354,6 +354,13 @@ class DataFrame
       @data[r].each_index do |c|
         name = @col_names[c]
         row[name] = @data[r][c]
+      end
+      rn = @row_names[r]
+      row.instance_eval do
+        @row_name = rn
+        def self.row_name
+          @row_name
+        end
       end
       rows << row
     end
