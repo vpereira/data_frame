@@ -44,10 +44,7 @@ class DataFrame
     end
     
     @names_to_index = Hash.new
-    @names_to_index[:row] = Hash.new
-    @names_to_index[:col] = Hash.new
-    @row_names.each_index { |r| @names_to_index[:row][@row_names[r]] = r}
-    @col_names.each_index { |c| @names_to_index[:col][@col_names[c]] = c}
+    reindex_names
   end
   
 
@@ -696,6 +693,31 @@ class DataFrame
     @names_to_index[:col] = new_names_to_index[:col]
   end
   
+  def reindex_cols
+    if cols
+      @names_to_index[:col] = Hash.new
+      @col_names.each_index { |c| @names_to_index[:col][@col_names[c]] = c}
+      if @data.size > 0 and @col_names.size != @data[0].size
+        throw NotImplementedError.new("Col names size: #{@col_names.size} different than number of data rows #{@data[0].size}")
+      end
+    end
+  end
+  
+  def reindex_rows
+    if rows
+      @names_to_index[:row] = Hash.new
+      @row_names.each_index { |r| @names_to_index[:row][@row_names[r]] = r}
+      if (@row_names.size != @data.size)
+        throw NotImplementedError.new("Row names size: #{@row_names.size} different than number of data rows #{@data.size}")
+      end
+    end
+  end
+
+  def reindex_names
+    reindex_rows
+    reindex_cols
+  end
+
   # Expands the number of rows to num_r
 
   def num_rows=(num_r)
