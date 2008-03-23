@@ -167,6 +167,8 @@ class DataFrame
 
   
   def []=(*args)
+    # BTO TODO: auto transpose single dim RHS DF
+    # BTO TODO: be friendlier with flat RHS Array
     row = args[0]  
     case args.length
     when 2
@@ -334,6 +336,8 @@ class DataFrame
     end
   end
   
+  alias :to_a :to_array
+  
   # Return the rows as array of hashes.  Row names are attached as .row_name
   
   def cols
@@ -384,9 +388,6 @@ class DataFrame
     named_rows
   end
   
-  def by
-  end
-  
   # Each element of data.
   
   def each
@@ -407,6 +408,7 @@ class DataFrame
   
   def map!
     @data.map! { |r| r.map! {|e| yield e }}
+    self
   end
   
   # Like Enumerable map but returns a DataFrame with same dimension, row_names
@@ -555,7 +557,9 @@ class DataFrame
   def method_missing(name, *args)
     name_s = name.to_s
     if name_s[-1..-1] == "="
-      raise NotImplementedError, "not tested yet"
+      # raise NotImplementedError, "not tested yet"
+      # puts name_s[0..-2]
+      # NOT REALLY WORKING YET
       self[true,name_s[0..-2]] = args[0]
     end
     if col_names.member?(name_s)
