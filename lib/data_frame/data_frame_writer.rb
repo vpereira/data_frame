@@ -11,14 +11,14 @@ class DataFrame
   end
   
   def to_csv(header=true)
-    FasterCSV.generate { |csv|
+    FasterCSV.generate do |csv|
       if header
         csv << col_names
       end
       @data.each do |d|
         csv << d
       end
-    end  
+    end
   end
   
   def html_table
