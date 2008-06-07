@@ -1,10 +1,10 @@
 require 'data_frame/version'
 
-AUTHOR = 'Lukas Biewald'  # can also be an array of Authors
-EMAIL = "lukas@doloreslabs.com"
-DESCRIPTION = "A data frame... duh"
+AUTHOR = ['Lukas Biewald',"Brendan O'Connor"]  # can also be an array of Authors
+EMAIL = ["lukas@doloreslabs.com","brenocon@gmail.com"]
+DESCRIPTION = "A data frame for R/Matlab style data analysis"
 GEM_NAME = 'data_frame' # what ppl will type to install your gem
-RUBYFORGE_PROJECT = 'data_frame' # The unix name for your project
+RUBYFORGE_PROJECT = 'dataframe' # The unix name for your project
 HOMEPATH = "http://#{RUBYFORGE_PROJECT}.rubyforge.org"
 DOWNLOAD_PATH = "http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}"
 
